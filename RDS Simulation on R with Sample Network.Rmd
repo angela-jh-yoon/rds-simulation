@@ -1,5 +1,5 @@
 ---
-title: "RDS Simulation on R"
+title: "RDS Simulation on R with Sample Network"
 author: "Angela Yoon"
 date: "6/4/2021"
 output: pdf_document
