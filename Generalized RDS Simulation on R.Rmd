@@ -1,0 +1,74 @@
+---
+title: "Generalized RDS Simulation on R"
+author: "Angela Yoon"
+date: "6/10/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rds_simulation <- function(G, lambda, n, start_index) {
+  
+  ### build zero adjacency matrix that will be updated to output G_R
+  size <- nrow(G)
+  G_R <- matrix(rep(0,size^2),size)
+  
+  ### build zero matrix to keep track of waiting time
+  T <- matrix(rep(NA,size^2),size)
+  
+  ### create empty vector to keep track of order of recruitment
+  order <- c()
+  
+  ### initialize i
+  i <- start_index
+  
+  ### iterate until we recruit n-1 more people
+  for (x in 1:(n-1)) {
+    
+    ### from original network, find all vertices adjacent to our most recently recruited vertex
+    for (j in 1:size) {
+      if (G[i,j] == 1) {
+        ### "activate" corresponding edges by assigning a waiting time
+        T[i,j] <- rexp(1, lambda)
+      }
+    }
+    
+    ### find the minimum waiting time from T to find out the next recruitment
+    waiting_time <- min(T,na.rm = TRUE)
+    new <- arrayInd(which.min(T),dim(T))
+    
+    ### identify the indexes of the recruiter and recruitee of this new recruitment
+    recruiter <- new[1,1]
+    recruitee <- new[1,2]
+    
+    ### update G_R and order to reflect this new recruitment
+    G_R[recruiter,recruitee] <- 1
+    order <- append(order,recruitee)
+    
+    ### update T by subtracting minimum waiting time from all other waiting times
+    ### also deactivate all edges from any other vertex to recruitee
+    for(row in 1:nrow(T)) {
+      for(col in 1:ncol(T)) {
+          if(!is.na(T[row, col])) {
+            T[row,col] <- T[row,col]-waiting_time
+          }
+      }
+    }
+    T[,recruitee] <- rep(NA,size)
+    
+    ### update G by eliminating all edges to most recent recruiter and recruitee
+    ### note: is there a need to do both? simplify if possible
+    G[,recruiter] <- rep(0,size)
+    G[,recruitee] <- rep(0,size)
+    
+    ### update i
+    i <- new[1,2]
+  }
+  
+  return(G_R, order)
+}
+```
+
