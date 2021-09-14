@@ -1,0 +1,30 @@
+---
+title: "visualize"
+author: "Angela Yoon"
+date: "9/14/2021"
+output: pdf_document
+---
+
+```{r}
+library(GGally)
+library(network)
+library(sna)
+library(ggplot2)
+```
+
+```{r}
+ggnet2(G, color=group_memberships, size=5)
+```
+
+```{r}
+ggnet2(results[[1]],color=group_memberships,size=5)
+```
+
+```{r}
+ggnet2(G2,label=round(members,digits=2), size=5)
+```
+
+```{r}
+ggnet2(results2[[1]],label=round(members,digits=2), size=5)
+```
+

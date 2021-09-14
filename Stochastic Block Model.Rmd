@@ -1,0 +1,46 @@
+---
+title: "Stochastic Block Model"
+author: "Angela Yoon"
+date: "9/1/2021"
+output: pdf_document
+---
+
+```{r}
+library(Rlab)
+```
+
+```{r}
+sbm <- function(group_memberships, edge_probabilities) {
+  len <- length(group_memberships)
+  G <- matrix(rep(0,len^2),len)
+  
+  for (i in 1:(len-1)) {
+    for (j in (i+1):len) {
+      
+      group_1 <- group_memberships[i]
+      group_2 <- group_memberships[j]
+      
+      prob <- edge_probabilities[group_1,group_2]
+      
+      edge <- rbern(1,prob)
+      
+      G[i,j] <- edge
+      G[j,i] <- edge
+    }
+  }
+  return(G)
+}
+```
+
+```{r}
+# sample run
+
+group_memberships <- rep(1,25)
+group_memberships <- append(group_memberships, rep(2,30))
+group_memberships <- append(group_memberships, rep(3,35))
+
+edge_probabilities <- matrix(c(0.8,0.05,0.05,0.05,0.8,0.05,0.05,0.05,0.8),3)
+
+G <- sbm(group_memberships,edge_probabilities)
+```
+

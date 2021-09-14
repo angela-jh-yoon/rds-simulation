@@ -1,0 +1,43 @@
+---
+title: "Latent Space Model"
+author: "Angela Yoon"
+date: "9/2/2021"
+output: pdf_document
+---
+
+```{r}
+library(Rlab)
+library(locfit)
+```
+
+```{r}
+expid_distance <- function(members,alpha,beta) {
+  len <- length(members)
+  G <- matrix(rep(0,len^2),len)
+  
+  for (i in 1:(len-1)) {
+    for (j in (i+1):len) {
+      
+      i_coord <- members[i]
+      j_coord <- members[j]
+      
+      prob <- expit(alpha-beta*(i_coord-j_coord)^2)
+      
+      edge <- rbern(1,prob)
+      
+      G[i,j] <- edge
+      G[j,i] <- edge
+    }
+  }
+  return(G)
+}
+```
+
+```{r}
+# sample run
+
+members <- rnorm(10)
+
+G2 <- expid_distance(members,10,15)
+```
+

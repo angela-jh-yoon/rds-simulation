@@ -91,6 +91,11 @@ rds_simulation <- function(G, lambda, n, start_index, num_coupon) {
 ```
 
 ```{r}
+results <- rds_simulation(G, 0.5, 90, 1, 3)
+results2 <- rds_simulation(G2,0.5,8,1,2)
+```
+
+```{r}
 ### calculate s
 get_s <- function(G_R, order, C, G) {
   
