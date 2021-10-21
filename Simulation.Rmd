@@ -1,0 +1,64 @@
+---
+title: "Simulation"
+author: "Angela Yoon"
+date: "10/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Rlab)
+library(locfit)
+```
+
+```{r}
+simulation <- function(nseed,ncoupons) {
+  
+  # start with seeds
+  # covariates have normal distribution of mean 0 and variance 1
+  covariates <- rnorm(nseed,0,1)
+  
+  # degrees have poisson distribution of mean 3
+  degrees <-  rpois(nseed,3)
+  
+  total_recruited <- nseed
+  cumulative_list <- covariates
+  
+  # continue until out of coupons
+  # detailing this part (when to stop) is not yet done
+  while (total_recruited < ncoupons) {
+    new_covariates <- c()
+    
+    # for each "seed", recruit some among its "degree" neighbors
+    # whether each neighbor is recruited is a Bernoulli trial with 
+    # p proportionate to seed covariate (proportionality established with expit)
+    # if neighbor is recruited, it is given its own covariate
+    # sampled from a normal distribution centered around the seed's covariate
+
+    for (i in 1:length(covariates)) {
+      for (j in 1:degrees[i]) {
+        recruited <- rbern(1,expit(covariates[i]))
+        if (recruited == 1) {
+          new_covariates <- append(new_covariates,rnorm(1,covariates[i],1))
+        }
+      }
+    }
+    
+    covariates <- new_covariates
+    degrees <- rpois(length(covariates),3)
+    total_recruited <- total_recruited + length(covariates)
+    cumulative_list <- append(cumulative_list,covariates)
+    
+  }
+  
+  return(cumulative_list)
+}
+```
+
+```{r}
+simulation(4,50)
+```
+
