@@ -6,6 +6,12 @@ output: pdf_document
 ---
 
 ```{r}
+"
+Variation of the Crawford RDS Simulation.
+Each person has a 'threshold', and recruitment is only made when the
+offered 'coupon price (or payback)' is greater than the person's threshold
+"
+
 ### creating the threshold vector
 
 threshold <- rnorm(25,10,3)

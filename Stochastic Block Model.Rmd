@@ -10,9 +10,31 @@ library(Rlab)
 ```
 
 ```{r}
+"
+This code contains a function that can generate networks under the Stochastic
+Block Model. Under this model, each member in the network is a part of a group, 
+and the probability that a pair of members will have a connection depends
+on the group membership of the two members.
+"
+
+# parameters
+
+# group_memberships: a vector with length equal to the number of people in
+# the network, with group_memberships[i] indicating the group number the ith
+# person is part of
+# edge_probabilities: an n by n matrix (n is the number of groups) with the
+# probabilities that a member in each group forms an edge with a member in
+# another group
+
 sbm <- function(group_memberships, edge_probabilities) {
+  
+  # set up zero matrix G that will later become the output
   len <- length(group_memberships)
   G <- matrix(rep(0,len^2),len)
+  
+  # according to probabilities in edge_probabilities,
+  # loop through each pair of nodes to determine whether 
+  # there will be an edge connecting the two
   
   for (i in 1:(len-1)) {
     for (j in (i+1):len) {
@@ -33,7 +55,8 @@ sbm <- function(group_memberships, edge_probabilities) {
 ```
 
 ```{r}
-# sample run
+# sample run with 25 nodes in group 1, 30 in group 2, and 35 in group 3
+# and edge probabilities between groups set up as below
 
 group_memberships <- rep(1,25)
 group_memberships <- append(group_memberships, rep(2,30))

@@ -11,6 +11,13 @@ library(locfit)
 ```
 
 ```{r}
+"
+This code contains a function that can generate networks under the Latent
+Space Model. Under this model, each member in the network is given a covariate, 
+and the probability that a pair of members will have a connection depends
+on the difference of the covariates (the 'distance' between the two).
+"
+
 expid_distance <- function(members,alpha,beta) {
   len <- length(members)
   G <- matrix(rep(0,len^2),len)
@@ -34,10 +41,10 @@ expid_distance <- function(members,alpha,beta) {
 ```
 
 ```{r}
-# sample run
+# sample run with covariate randomly generated from 
+# normal distrubution of mean 10 and variance 1
 
 members <- rnorm(10)
 
 G2 <- expid_distance(members,10,15)
 ```
-

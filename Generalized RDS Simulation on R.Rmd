@@ -10,6 +10,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+"
+This file contains code that generalizes the work in
+'RDS Simulation on R with Sample Network.Rmd' to be appliable to all networks
+i.e. it enables Crawford's RDS simulation to be done on any network.
+"
+
+# parameters
+# G: 
+# lambda: 
+# n: 
+# start_index: 
+# num_coupon: 
+
 rds_simulation <- function(G, lambda, n, start_index, num_coupon) {
   
   ### build zero adjacency matrix that will be updated to output G_R

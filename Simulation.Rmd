@@ -15,6 +15,11 @@ library(locfit)
 ```
 
 ```{r}
+"
+A different form of recruitment simulation.
+Write-up of this algorithm can be found in 'Model Write-up'.
+"
+
 simulation <- function(nseed,ncoupons) {
   
   # start with seeds
@@ -61,4 +66,3 @@ simulation <- function(nseed,ncoupons) {
 ```{r}
 simulation(4,50)
 ```
-

@@ -14,6 +14,14 @@ library(gganimate)
 ```
 
 ```{r}
+"
+This file contains code that can be used to visualize and check the output
+from 'Stochastic Block Model.Rmd', 'Latent Space Model.Rmd', and other model
+network outputting code.
+"
+```
+
+```{r}
 ggnet2(G, color=group_memberships, size=5)
 ```
 
@@ -28,9 +36,3 @@ ggnet2(G2,label=round(members,digits=2), size=5)
 ```{r}
 ggnet2(results2[[1]],label=round(members,digits=2), size=5)
 ```
-
-```{r}
-ggnet2(results[[1]],color=group_memberships,size=5) +
-  transition_time()
-```
-

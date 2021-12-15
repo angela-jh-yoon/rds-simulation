@@ -11,6 +11,13 @@ library(locfit)
 ```
 
 ```{r}
+"
+(In progress)
+Integrating the simplified simulation model in 'Simulation.Rmd' with
+the Crawford RDS model to introduce an reinforcement learning aspect 
+to the Crawford model
+"
+
 rds_simulation <- function(G, lambda, n, start_index, num_coupon) {
   
   ### build zero adjacency matrix that will be updated to output G_R

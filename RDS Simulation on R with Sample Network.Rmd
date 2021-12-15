@@ -10,6 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+"
+This file contains code that can carry out Crawford's RDS simulation on 
+the sample network drawn out in 'Sample Network with Vertex Indices.jpg'.
+"
+
 ### create the adjacency matrix for the original network G
 
 G <- matrix(c(0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,1,0),9)
